@@ -24,6 +24,12 @@ ASFLAGS  := -g $(ARCH)
 LDFLAGS := -specs=$(DEVKITPRO)/libnx/switch.specs -g $(ARCH) \
            -Wl,-Map,$(notdir $*.map) -Wl,--gc-sections
 
+# Force the devkitA64 linker driver. GNU make has a built-in LD=ld, which
+# otherwise selects the host x86_64 linker inside CI.
+export CC  := $(DEVKITPRO)/devkitA64/bin/aarch64-none-elf-gcc
+export CXX := $(DEVKITPRO)/devkitA64/bin/aarch64-none-elf-g++
+export LD  := $(CXX)
+
 LIBS    := -lnx
 LIBDIRS := $(LIBNX)
 
