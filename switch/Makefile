@@ -17,7 +17,7 @@ APP_VERSION := 0.0.1
 ARCH := -march=armv8-a+crc+crypto -mtune=cortex-a57 -mtp=soft -fPIE
 
 CFLAGS   := -g -O2 -Wall -ffunction-sections -fdata-sections $(ARCH) $(DEFINES)
-CFLAGS   += $(INCLUDE) -D__SWITCH__ -DPIKI_SWITCH_PORT=1
+CFLAGS   += $(INCLUDE) -D__SWITCH__ -DPIKI_SWITCH_PORT=1 -DPIKI_SWITCH=1 -DPIKI_PC_PORT=1 -DDTK_CONFIG_NONMATCHING=1 -DPIKI_USE_DGX=0 -DPIKI_USE_JAUDIO=0
 CXXFLAGS := $(CFLAGS) -std=gnu++17
 ASFLAGS  := -g $(ARCH)
 
