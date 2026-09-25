@@ -1,0 +1,34 @@
+name: Switch bootstrap build
+
+on:
+  push:
+    branches: [switch-port]
+  pull_request:
+    branches: [switch-port]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: devkitpro/devkita64:latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Build NRO
+        run: make -f switch/Makefile -j2
+
+      - name: Verify output
+        run: |
+          test -f build-switch/pikmin-switch.nro
+          file build-switch/pikmin-switch.nro || true
+          ls -lh build-switch/pikmin-switch.*
+
+      - name: Upload NRO
+        uses: actions/upload-artifact@v4
+        with:
+          name: pikmin-switch-bootstrap
+          path: build-switch/pikmin-switch.nro
+          if-no-files-found: error
