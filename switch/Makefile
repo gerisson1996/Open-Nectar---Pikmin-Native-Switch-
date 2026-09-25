@@ -7,7 +7,7 @@ include $(DEVKITPRO)/libnx/switch_rules
 
 TARGET      := pikmin-switch
 BUILD       := build-switch
-SOURCES     := switch/source
+SOURCES     := switch/source pc_port/timing
 INCLUDES    := switch/include
 
 APP_TITLE   := Pikmin Native Switch
@@ -45,7 +45,7 @@ CPPFILES     := $(foreach dir,$(SOURCES),$(notdir $(wildcard $(dir)/*.cpp)))
 export OFILES := $(CPPFILES:.cpp=.o) $(CFILES:.c=.o)
 export INCLUDE := $(foreach dir,$(INCLUDES),-I$(CURDIR)/$(dir)) \
                   $(foreach dir,$(LIBDIRS),-I$(dir)/include) \
-                  -I$(CURDIR)/include -I$(CURDIR)/pc_port
+                  -I$(CURDIR)/include -I$(CURDIR)/pc_port -I$(CURDIR)/pc_port/timing
 
 export LIBPATHS := $(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
