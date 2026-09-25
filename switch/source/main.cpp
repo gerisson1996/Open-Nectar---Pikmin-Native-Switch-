@@ -1,5 +1,8 @@
 #include <switch.h>
 #include <stdio.h>
+#include "pc_frame_scheduler.h"
+
+extern "C" double piki_switch_seconds(void);
 
 int main(int argc, char **argv)
 {
@@ -14,7 +17,11 @@ int main(int argc, char **argv)
 
     printf("Pikmin Native Switch\\n");
     printf("Open Nectar ARM64/libnx bootstrap\\n\\n");
+    PcFrameScheduler scheduler;
+    scheduler.reset(piki_switch_seconds(), 1);
+
     printf("AArch64 target is running.\\n");
+    printf("Open Nectar scheduler linked: %.2f Hz.\\n", 1.0 / scheduler.fixedDelta());
     printf("Press + to exit.\\n");
 
     while (appletMainLoop()) {
